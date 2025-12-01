@@ -1,0 +1,6 @@
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\obj\Debug\lib.csproj.AssemblyReference.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\obj\Debug\lib.csproj.CoreCompileInputs.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\bin\Debug\lib.dll
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\bin\Debug\lib.pdb
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\obj\Debug\lib.dll
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\lib\lib\obj\Debug\lib.pdb

@@ -1,0 +1,11 @@
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\bin\Debug\1.exe.config
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\bin\Debug\1.exe
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\bin\Debug\1.pdb
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\bin\Debug\lib.dll
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\bin\Debug\lib.pdb
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.csproj.AssemblyReference.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.csproj.CoreCompileInputs.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.csproj.Up2Date
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.exe
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.pdb
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\1\obj\Debug\1.exe.config
