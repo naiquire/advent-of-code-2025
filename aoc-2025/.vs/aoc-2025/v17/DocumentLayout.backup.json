@@ -3,7 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F59EF3F-0E1A-472E-B1BA-B763982D54E0}|2\\2.csproj|c:\\users\\naiquire\\documents\\general\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{04C878EC-8CDE-455C-B00B-01EBB839B2B3}|3\\3.csproj|c:\\users\\naiquire\\documents\\general\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04C878EC-8CDE-455C-B00B-01EBB839B2B3}|3\\3.csproj|solutionrelative:3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\lib\\lib\\lib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F59EF3F-0E1A-472E-B1BA-B763982D54E0}|2\\2.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8F59EF3F-0E1A-472E-B1BA-B763982D54E0}|2\\2.csproj|solutionrelative:2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,7 +21,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,16 +41,41 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "lib.cs",
+              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\lib\\lib\\lib.cs",
+              "RelativeDocumentMoniker": "..\\lib\\lib\\lib.cs",
+              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\lib\\lib\\lib.cs",
+              "RelativeToolTip": "..\\lib\\lib\\lib.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAApwB0AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T05:14:24.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\Program.cs",
+              "RelativeDocumentMoniker": "3\\Program.cs",
+              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\Program.cs",
+              "RelativeToolTip": "3\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwDMAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T16:57:40.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\Program.cs",
               "RelativeDocumentMoniker": "2\\Program.cs",
               "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\Program.cs",
               "RelativeToolTip": "2\\Program.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwEAAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwEMAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T15:57:13.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T15:57:13.82Z"
             }
           ]
         },
