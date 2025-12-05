@@ -46,91 +46,41 @@ namespace _5
 				}
 			}
 		}
-		static ulong solve2(List<string> ranges)
-		{
-			ulong total = 0;
-			List<(ulong l, ulong h)> rv = new List<(ulong h, ulong l)>();
 
-			// perform the first pass
+		static long solve2(List<string> ranges)
+		{
+			long total = 0;
+			(long st, long ed)[] R = new (long st, long ed)[ranges.Count];
+			long count = 0;
 			foreach (var range in ranges)
 			{
 				string[] s = range.Split('-');
-				ulong[] bounds = Array.ConvertAll(s, ulong.Parse);
-				if (rv.Count == 0)
-				{
-					rv.Add((bounds[0], bounds[1]));
-					continue;
-				}
-
-				bool foundReplace = merge(bounds);
-				if (!foundReplace)
-				{
-					// no bounds contained
-					rv.Add((bounds[0], bounds[1]));
-				}
+				R[count] = ((long.Parse(s[0]), long.Parse(s[1])));
+				count++;
 			}
 
-			// perform subsequent passes until no more merges can be made
-			while (true)
+			Array.Sort(R);
+			long current = -1;
+			
+			for (int i = 0; i < R.Length; i++)
 			{
-				bool changed = false;
-				foreach (var range in rv)
+				if (current >= R[i].st)
 				{
-					ulong[] bounds = new ulong[] { range.l, range.h };
-					if (merge(bounds))
-					{
-						changed = true;
-						break;
-					}
+					// if current is within the range, adjust the start
+					long e = R[i].ed;
+					R[i] = ((current + 1, e));
 				}
-				if (!changed)
+				if (R[i].st <= R[i].ed)
 				{
-					break;
+					// valid range, including check for adjusted start exceeding end as range is completely contained
+					total += (R[i].ed - R[i].st + 1);
 				}
+				// update current
+				current = Math.Max(current, R[i].ed);
 			}
-
-			foreach (var range in rv.ToHashSet())
-			{
-				total += (range.h - range.l) + 1;
-			}
-
+			
 			return total;
-
-			bool merge(ulong[] bounds)
-			{
-				bool foundReplace = false;
-				for (int i = 0; i < rv.Count; i++)
-				{
-					// lower bound contained but upper bound exceeds
-					if (bounds[0] >= rv[i].l && bounds[0] <= rv[i].h && bounds[1] > rv[i].h)
-					{
-						ulong temp = rv[i].l;
-						rv.RemoveAt(i);
-						rv.Add((temp, bounds[1]));
-						foundReplace = true;
-						break;
-					}
-					// upper bound contained but lower bound exceeds
-					if (bounds[1] <= rv[i].h && bounds[1] >= rv[i].l && bounds[0] < rv[i].l)
-					{
-						ulong temp = rv[i].h;
-						rv.RemoveAt(i);
-						rv.Add((bounds[0], temp));
-						foundReplace = true;
-						break;
-					}
-					// bounds are completely contained
-					if (bounds[0] >= rv[i].l && bounds[1] >= rv[i].l && bounds[0] <= rv[i].h && bounds[1] <= rv[i].h)
-					{
-						if ((bounds[0], bounds[1]) == rv[i]) continue;
-
-						rv.Remove((bounds[0], bounds[1]));
-						foundReplace = true;
-						break;
-					}
-				}
-				return foundReplace;
-			}
 		}
+		
 	}
 }
