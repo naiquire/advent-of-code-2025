@@ -27,24 +27,19 @@ namespace _5
 
 			foreach (var id in ids)
 			{
-				checkRange(ulong.Parse(id));
-			}
-
-			return total;
-
-
-			void checkRange(ulong id)
-			{
 				foreach (var range in ranges)
 				{
+					ulong iid = ulong.Parse(id);
 					ulong[] r = Array.ConvertAll(range.Split('-'), ulong.Parse);
-					if (r[0] <= id && r[1] >= id)
+					if (r[0] <= iid && r[1] >= iid)
 					{
 						total++;
-						return;
+						break;
 					}
 				}
 			}
+
+			return total;
 		}
 
 		static long solve2(List<string> ranges)
@@ -68,7 +63,7 @@ namespace _5
 				{
 					// if current is within the range, adjust the start
 					long e = R[i].ed;
-					R[i] = ((current + 1, e));
+					R[i] = (current + 1, e);
 				}
 				if (R[i].st <= R[i].ed)
 				{

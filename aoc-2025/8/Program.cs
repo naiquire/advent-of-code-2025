@@ -2,19 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace _8
 {
 	internal class Program
 	{
+		const int part1Iterations = 1000;
 		static async Task Main(string[] args)
 		{
 			string input = await Input.GetInput(8, 2025);
 			//string input = "162,817,812\n57,618,57\n906,360,560\n592,479,940\n352,342,300\n466,668,158\n542,29,236\n431,825,988\n739,650,466\n52,470,668\n216,146,977\n819,987,18\n117,168,530\n805,96,715\n346,949,466\n970,615,88\n941,993,340\n862,61,35\n984,92,344\n425,690,689";
-			
+
 			List<string> lines = Input.ParseList(input, '\n');
 			List<(int, int, int)> data = new List<(int, int, int)>();
 			foreach (string line in lines)
@@ -23,70 +22,50 @@ namespace _8
 				data.Add((a[0], a[1], a[2]));
 			}
 
-			Console.WriteLine("\r" + solve1(data) + "       ");
-			Console.WriteLine("\r" + solve2(data));
+			Console.WriteLine(solve1(data));
+			Console.WriteLine(solve2(data));
 		}
 		static int solve1(List<(int X, int Y, int Z)> coords)
 		{
-			int total = 1;
 			double[,] adjMatrix = buildMatrix(coords);
 			List<HashSet<(int X, int Y, int Z)>> circuits = new List<HashSet<(int X, int Y, int Z)>>();
 
-			bool[] coordAdded = new bool[coords.Count];
-			bool[,] arcsVisited = new bool[coords.Count, coords.Count];
+			List<(int, int)> orderedArcs = sortArcs(adjMatrix);
+			int arcIndex = 0;
 
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < part1Iterations; i++)
 			{
-				(int n1, int n2) minArcIndex = kruskal(coords, ref arcsVisited, adjMatrix);
+				(int n1, int n2) minArcIndex = orderedArcs[arcIndex];
 				mergeCircuits(ref circuits, coords, minArcIndex);
 
-				coordAdded[minArcIndex.n1] = true;
-				coordAdded[minArcIndex.n2] = true;
-
-				arcsVisited[minArcIndex.n1, minArcIndex.n2] = true;
-				arcsVisited[minArcIndex.n2, minArcIndex.n1] = true;
-
-				Console.Write($"\r{circuits.Count} circuits  ");
+				arcIndex++;
 			}
 
 			circuits = circuits.OrderByDescending(c => c.Count).ToList();
-			for (int i = 0; i < 3; i++)
-			{
-				total *= circuits[i].Count;
-			}
-
-			return total;
+			return circuits[0].Count * circuits[1].Count * circuits[2].Count;
 		}
 		static ulong solve2(List<(int X, int Y, int Z)> coords)
 		{
 			double[,] adjMatrix = buildMatrix(coords);
 			List<HashSet<(int X, int Y, int Z)>> circuits = new List<HashSet<(int X, int Y, int Z)>>();
 
-			bool[] coordAdded = new bool[coords.Count];
-			bool[,] arcsVisited = new bool[coords.Count, coords.Count];
+			List<(int, int)> orderedArcs = sortArcs(adjMatrix);
+			int arcIndex = 0;
 
 			while (true)
 			{
-				(int n1, int n2) minArcIndex = kruskal(coords, ref arcsVisited, adjMatrix);
+				(int n1, int n2) minArcIndex = orderedArcs[arcIndex];
 				mergeCircuits(ref circuits, coords, minArcIndex);
-
-				coordAdded[minArcIndex.n1] = true;
-				coordAdded[minArcIndex.n2] = true;
-
-				arcsVisited[minArcIndex.n1, minArcIndex.n2] = true;
-				arcsVisited[minArcIndex.n2, minArcIndex.n1] = true;
-
-				Console.Write($"\r{ circuits.Count} circuits  ");
 
 				if (circuits.Count == 1 && circuits[0].Count == coords.Count)
 				{
-					ulong value = (ulong)coords[minArcIndex.n1].X * (ulong)coords[minArcIndex.n2].X;
-					return value;
+					return (ulong)coords[minArcIndex.n1].X * (ulong)coords[minArcIndex.n2].X;
 				}
+
+				arcIndex++;
 			}
 		}
 
-		#region functions
 		static double[,] buildMatrix(List<(int X, int Y, int Z)> coords)
 		{
 			double[,] adjMatrix = new double[coords.Count, coords.Count];
@@ -108,22 +87,18 @@ namespace _8
 			}
 			return adjMatrix;
 		}
-		static (int, int) kruskal(List<(int X, int Y, int Z)> coords, ref bool[,] arcsVisited, double[,] adjMatrix)
+		static List<(int, int)> sortArcs(double[,] adjMatrix)
 		{
-			double min = int.MaxValue;
-			(int n1, int n2) minArcIndex = (int.MaxValue, int.MaxValue);
-			for (int j = 0; j < coords.Count; j++)
+			List<(int n1, int n2)> arcs = new List<(int, int)>();
+			for (int j = 0; j < adjMatrix.GetLength(0); j++)
 			{
-				for (int k = 0; k < coords.Count; k++)
+				for (int k = j + 1; k < adjMatrix.GetLength(1); k++)
 				{
-					if (adjMatrix[j, k] < min && !arcsVisited[j, k] && !arcsVisited[k, j])
-					{
-						min = adjMatrix[j, k];
-						minArcIndex = (j, k);
-					}
+					arcs.Add((j, k));
 				}
 			}
-			return minArcIndex;
+
+			return arcs.OrderBy(a => adjMatrix[a.n1, a.n2]).ToList();
 		}
 		static void mergeCircuits(ref List<HashSet<(int X, int Y, int Z)>> circuits, List<(int X, int Y, int Z)> coords, (int n1, int n2) minArcIndex)
 		{
@@ -170,7 +145,5 @@ namespace _8
 				circuits.RemoveAt(index2);
 			}
 		}
-		#endregion
-
 	}
 }
