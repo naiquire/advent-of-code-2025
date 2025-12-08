@@ -3,28 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7DFD80F9-9621-42C0-9899-CF7B95475596}|7\\7.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7DFD80F9-9621-42C0-9899-CF7B95475596}|7\\7.csproj|solutionrelative:7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8133E349-F036-4004-ABE7-36C013BFCEAD}|6\\6.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8133E349-F036-4004-ABE7-36C013BFCEAD}|6\\6.csproj|solutionrelative:6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FCD8716-C95F-4B13-8113-75A1265C385F}|5\\5.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\5\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FCD8716-C95F-4B13-8113-75A1265C385F}|5\\5.csproj|solutionrelative:5\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC820151-8F81-4E36-85B9-FB7ACF9B1DA5}|4\\4.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\4\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC820151-8F81-4E36-85B9-FB7ACF9B1DA5}|4\\4.csproj|solutionrelative:4\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04C878EC-8CDE-455C-B00B-01EBB839B2B3}|3\\3.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04C878EC-8CDE-455C-B00B-01EBB839B2B3}|3\\3.csproj|solutionrelative:3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F59EF3F-0E1A-472E-B1BA-B763982D54E0}|2\\2.csproj|C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F59EF3F-0E1A-472E-B1BA-B763982D54E0}|2\\2.csproj|solutionrelative:2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12D7600A-613F-4EC0-83DE-AA19D61AED04}|8\\8.csproj|c:\\users\\naiquire\\documents\\general\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\8\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12D7600A-613F-4EC0-83DE-AA19D61AED04}|8\\8.csproj|solutionrelative:8\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -56,74 +36,14 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\7\\Program.cs",
-              "RelativeDocumentMoniker": "7\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\7\\Program.cs",
-              "RelativeToolTip": "7\\Program.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAowBoAAABGAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\8\\Program.cs",
+              "RelativeDocumentMoniker": "8\\Program.cs",
+              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\8\\Program.cs",
+              "RelativeToolTip": "8\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAALAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T20:32:36.862Z",
+              "WhenOpened": "2025-12-07T22:00:46.74Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\6\\Program.cs",
-              "RelativeDocumentMoniker": "6\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\6\\Program.cs",
-              "RelativeToolTip": "6\\Program.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAowC4AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T21:16:54.764Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\5\\Program.cs",
-              "RelativeDocumentMoniker": "5\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\5\\Program.cs",
-              "RelativeToolTip": "5\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T21:35:28.412Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\4\\Program.cs",
-              "RelativeDocumentMoniker": "4\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\4\\Program.cs",
-              "RelativeToolTip": "4\\Program.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAowEUAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-03T21:50:38.752Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\Program.cs",
-              "RelativeDocumentMoniker": "3\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\3\\Program.cs",
-              "RelativeToolTip": "3\\Program.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAUwBIAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T16:57:40.974Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\Program.cs",
-              "RelativeDocumentMoniker": "2\\Program.cs",
-              "ToolTip": "C:\\Users\\naiquire\\Documents\\General\\projects\\aoc\\advent-of-code-2025\\aoc-2025\\2\\Program.cs",
-              "RelativeToolTip": "2\\Program.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwEMAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T15:57:13.82Z"
             }
           ]
         },
