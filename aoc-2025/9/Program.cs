@@ -1,9 +1,9 @@
 ﻿using lib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
-
-// part 2 has a runtime of like 10 minutes but it does work lol
 
 namespace _9
 {
@@ -22,8 +22,17 @@ namespace _9
 				coords.Add((a[0], a[1]));
 			}
 
-			Console.WriteLine(solve1(coords));
-			Console.WriteLine("\r" + solve2(coords));
+			var sw = new Stopwatch();
+
+			sw.Restart();
+			ulong p1 = solve1(coords);
+			sw.Stop();
+			Console.WriteLine($"part 1: {p1}  ~  {sw.ElapsedMilliseconds}ms");
+
+			sw.Restart();
+			ulong p2 = solve2(coords);
+			sw.Stop();
+			Console.WriteLine($"part 2: {p2}  ~  {sw.ElapsedMilliseconds}ms");
 		}
 		static ulong solve1(List<(int X, int Y)> coords)
 		{
@@ -41,63 +50,92 @@ namespace _9
 
 			return maxArea;
 		}
-		static ulong solve2(List<(int X, int Y)> red)
+		static ulong solve2(List<(int X, int Y)> redTiles)
 		{
 			ulong maxArea = 0;
-			HashSet<(int X, int Y)> green = new HashSet<(int X, int Y)>();
 
-			for (int i = 0; i < red.Count; i++)
+			bool[,] linkXY;
+			Dictionary<int, int> mapXvalues = new Dictionary<int, int>();
+			Dictionary<int, int> mapYvalues = new Dictionary<int, int>();
+
+			List<int> Xcoords = redTiles.Select(x => x.X).Distinct().ToList();
+			List<int> Ycoords = redTiles.Select(y => y.Y).Distinct().ToList();
+
+			Xcoords.Sort();
+			Ycoords.Sort();
+
+			// co-ordinate compression
+			for (int x = 0; x < Xcoords.Count; x++)
 			{
-				if (red[i].X == red[(i + 1) % red.Count].X)
+				mapXvalues[Xcoords[x]] = x;
+			}
+			for (int y = 0; y < Ycoords.Count; y++)
+			{
+				mapYvalues[Ycoords[y]] = y;
+			}
+
+			linkXY = new bool[Xcoords.Count, Ycoords.Count];
+			foreach (var (X, Y) in redTiles)
+			{
+				int cx = mapXvalues[X];
+				int cy = mapYvalues[Y];
+				linkXY[cx, cy] = true;
+			}
+
+			bool[,] greenTiles = new bool[Xcoords.Count, Ycoords.Count];
+
+
+			// find green tiles in outline only
+			for (int i = 0; i < redTiles.Count; i++)
+			{
+				if (redTiles[i].X == redTiles[(i + 1) % redTiles.Count].X)
 				{
-					int startY = Math.Min(red[i].Y, red[(i + 1) % red.Count].Y) + 1;
-					int endY = Math.Max(red[i].Y, red[(i + 1) % red.Count].Y) - 1;
+					int startY = Math.Min(mapYvalues[redTiles[i].Y], mapYvalues[redTiles[(i + 1) % redTiles.Count].Y]) + 1;
+					int endY = Math.Max(mapYvalues[redTiles[i].Y], mapYvalues[redTiles[(i + 1) % redTiles.Count].Y]) - 1;
 
 					for (int y = startY; y <= endY; y++)
 					{
-						green.Add((red[i].X, y));
+						greenTiles[mapXvalues[redTiles[i].X], y] = true;
 					}
 				}
-				if (red[i].Y == red[(i + 1) % red.Count].Y)
+				if (redTiles[i].Y == redTiles[(i + 1) % redTiles.Count].Y)
 				{
-					int startX = Math.Min(red[i].X, red[(i + 1) % red.Count].X) + 1;
-					int endX = Math.Max(red[i].X, red[(i + 1) % red.Count].X) - 1;
+					int startX = Math.Min(mapXvalues[redTiles[i].X], mapXvalues[redTiles[(i + 1) % redTiles.Count].X]) + 1;
+					int endX = Math.Max(mapXvalues[redTiles[i].X], mapXvalues[redTiles[(i + 1) % redTiles.Count].X]) - 1;
 
 					for (int x = startX; x <= endX; x++)
 					{
-						green.Add((x, red[i].Y));
+						greenTiles[x, mapYvalues[redTiles[i].Y]] = true;
 					}
 				}
 			}
 
-			for (int i = 0; i < red.Count; i++)
+			for (int i = 0; i < redTiles.Count; i++)
 			{
-				Console.Write($"\r{i}/496       ");
-				for (int j = 0; j < red.Count; j++)
+				for (int j = 0; j < redTiles.Count; j++)
 				{
 					if (i == j) continue;
 
-					ulong area = (ulong)(Math.Abs(red[j].X - red[i].X) + 1) * (ulong)(Math.Abs(red[j].Y - red[i].Y) + 1);
-					if (area < maxArea)
-					{
-						continue;
-					}
-
 					bool valid = true;
 
-					int minx = Math.Min(red[i].X, red[j].X) + 1;
-					int maxx = Math.Max(red[i].X, red[j].X) - 1;
-					int miny = Math.Min(red[i].Y, red[j].Y) + 1;
-					int maxy = Math.Max(red[i].Y, red[j].Y) - 1;
+					int minx = Math.Min(mapXvalues[redTiles[i].X], mapXvalues[redTiles[j].X]) + 1;
+					int maxx = Math.Max(mapXvalues[redTiles[i].X], mapXvalues[redTiles[j].X]) - 1;
+					int miny = Math.Min(mapYvalues[redTiles[i].Y], mapYvalues[redTiles[j].Y]) + 1;
+					int maxy = Math.Max(mapYvalues[redTiles[i].Y], mapYvalues[redTiles[j].Y]) - 1;
 
+					if (minx >= linkXY.GetLength(0) || miny >= linkXY.GetLength(1)) continue;
+					if (maxx < 0 || maxy < 0) continue;
+
+					// check if any of the outline tiles are within the current rectangle
+					// only checking one tile in on each side is necessary for the input, however is not sufficient for all inputs
 					for (int x = minx; x <= maxx; x++)
 					{
-						if (green.Contains((x, miny)))
+						if (greenTiles[x, miny] || linkXY[x, miny])
 						{
 							valid = false;
 							break;
 						}
-						if (green.Contains((x, maxy)))
+						if (greenTiles[x, maxy] || linkXY[x, maxy])
 						{
 							valid = false;
 							break;
@@ -105,12 +143,12 @@ namespace _9
 					}
 					for (int y = miny; y <= maxy; y++)
 					{
-						if (green.Contains((minx, y)))
+						if (greenTiles[minx, y] || linkXY[minx, y])
 						{
 							valid = false;
 							break;
 						}
-						if (green.Contains((maxx, y)))
+						if (greenTiles[maxx, y] || linkXY[maxx, y])
 						{
 							valid = false;
 							break;
@@ -118,6 +156,7 @@ namespace _9
 					}
 					if (!valid) continue;
 
+					ulong area = (ulong)(Math.Abs(redTiles[j].X - redTiles[i].X) + 1) * (ulong)(Math.Abs(redTiles[j].Y - redTiles[i].Y) + 1);
 					if (area > maxArea)
 					{
 						maxArea = area;
