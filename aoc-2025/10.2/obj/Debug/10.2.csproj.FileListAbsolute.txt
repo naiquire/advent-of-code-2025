@@ -6,3 +6,11 @@
 \\store\studenthomes\2024\24NS2144\CompSci\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.exe
 \\store\studenthomes\2024\24NS2144\CompSci\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.pdb
 \\store\studenthomes\2024\24NS2144\CompSci\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.exe.config
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\bin\Debug\10.2.exe.config
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\bin\Debug\10.2.exe
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\bin\Debug\10.2.pdb
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.csproj.AssemblyReference.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.exe.config
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.csproj.CoreCompileInputs.cache
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.exe
+C:\Users\naiquire\Documents\General\projects\aoc\advent-of-code-2025\aoc-2025\10.2\obj\Debug\10.2.pdb

@@ -2,19 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace _10
+// part 2 was unsuccessful in C#, solved in Python instead
+
+// some interesting notes about using 2-stage simplex for part 2
+
+	// for the test data, only minimising the artificial function was sufficient to get the correct integer solution
+	// however for the full data, this both returned non-integer solutions and simplex arrays that had not been optimised fully (~18500.xxx was the rough value for the total, which was surprisingly close to the actual integer solution of 18369)
+	// i had started coding a function to find the integer solutions after maximising the objective function, without realising that the simplex could and would return negative values
+
+	// after implementing a method to maximise the objective function, some of the buttons had to be pressed a negative number of times
+	// this also showed that the tableau for the test data wasn't actually optimised, and the first machine is completable in 7 presses, part of which includes pressing the first button -2 times
+	// 2-stage simplex cannot handle this directly, so i used a Python library instead that was able to handle this
+
+
+namespace _10_2
 {
 	internal class Program
 	{
 		static async Task Main(string[] args)
 		{
-			//string input = await Input.GetInput(10, 2025);
-			string input = "[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}\n[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}\n[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}\n";
+			string input = await Input.GetInput(10, 2025);
+			//string input = "[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}\n[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}\n[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}\n";
 
 			List<string> states = new List<string>();
 			List<List<List<int>>> toggles = new List<List<List<int>>>();
@@ -28,7 +38,7 @@ namespace _10
 				int bracket = line.IndexOf(']');
 				states.Add(line.Substring(1, bracket - 1));
 
-				
+
 				int joltage = line.IndexOf('{');
 				joltages.Add(Input.ParseIntList(line.Substring(joltage + 1, line.Length - joltage - 2), ',').ToArray());
 				string toggleList = line.Substring(bracket + 2, joltage - bracket - 3);
@@ -41,8 +51,8 @@ namespace _10
 				toggles.Add(ts);
 			}
 
-			//Console.WriteLine(solve1(states, toggles));
-			Console.WriteLine(solve2(joltages, toggles));
+			Console.WriteLine(solve1(states, toggles));
+			//Console.WriteLine(solve2simplex(joltages, toggles));
 		}
 
 		static int solve1(List<string> states, List<List<List<int>>> togglesList)
@@ -53,27 +63,19 @@ namespace _10
 			{
 				char[] state = states[i].ToCharArray();
 				List<List<int>> toggles = togglesList[i];
-				int[] buttons = new int[state.Length];
-
-				// int stateIndex, int value
-				Dictionary<char[], int> map = new Dictionary<char[], int>();
 
 				char[] init = new char[state.Length];
+				string initStr = "";
 				for (int j = 0; j < init.Length; j++)
 				{
 					init[j] = '.';
+					initStr += '.';
 				}
 
 				Queue<(char[], int)> queue = new Queue<(char[], int)>();
 				Dictionary<string, int> seen = new Dictionary<string, int>();
 				queue.Enqueue((init, 0));
-
-				string add = "";
-				foreach (char c in init)
-				{
-					add += c;
-				}
-				seen[add] = 0;
+				seen[initStr] = 0;
 
 				string target = string.Empty;
 				foreach (char c in state)
@@ -85,118 +87,47 @@ namespace _10
 				{
 					(char[] current, int num) = queue.Dequeue();
 
-					string temp = string.Empty;
-					foreach (char c in current)
-					{
-						temp += c;
-					}
-
-
 					for (int t = 0; t < toggles.Count; t++)
 					{
 						char[] nc = new char[current.Length];
-						for (int j = 0; j < current.Length; j++)
-						{
-							nc[j] = current[j];
-						}
+						Array.Copy(current, nc, current.Length);
 
 						foreach (int c in toggles[t])
 						{
 							nc[c] = nc[c] == '#' ? '.' : '#';
 						}
 
-						string add2 = "";
+						string combination = "";
 						foreach (char c in nc)
 						{
-							add2 += c;
+							combination += c;
 						}
 
-						if (seen.ContainsKey(add2))
+						if (seen.ContainsKey(combination))
 						{
-							if (num + 1 < seen[add2])
+							if (num + 1 < seen[combination])
 							{
-								seen[add2] = num + 1;
+								seen[combination] = num + 1;
 								queue.Enqueue((nc, num + 1));
 								break;
 							}
 						}
 						else
 						{
-							seen[add2] = num + 1;
+							seen[combination] = num + 1;
 							queue.Enqueue((nc, num + 1));
 						}
 					}
 				}
 
-				Console.WriteLine(seen[target]);
 				total += seen[target];
-
-				//total += processToggle(init, ref state, buttons, ref map, ref toggles, -1);
-
 			}
-
-			int processToggle(char[] state, ref char[] target, int[] buttons, ref Dictionary<char[], int> map, ref List<List<int>> toggles, int lastIndex)
-			{
-				bool match = true;
-				for (int i = 0; i < state.Length; i++)
-				{
-					if (state[i] != target[i])
-					{
-						match = false;
-						break;
-					}
-				}
-
-				if (match) return 0;
-
-				if (map.ContainsKey(state))
-				{
-					return map[state];
-				}
-
-				int minvalue = int.MaxValue;
-				for (int i = 0; i < toggles.Count; i++)
-				{
-					if (i == lastIndex) continue;
-					foreach (int c in toggles[i])
-					{
-						buttons[c]++;
-					}
-
-					for (int j = 0; j < buttons.Length; j++)
-					{
-						if (buttons[j] % 2 == 0)
-						{
-							state[j] = '.';
-						}
-						else
-						{
-							state[j] = '#';
-						}
-					}
-
-					int value = processToggle(state, ref target, buttons, ref map, ref toggles, i);
-
-					if (map.TryGetValue(state, out int temp))
-					{
-						if (value < temp)
-						{
-							map[state] = value;
-						}
-					}
-
-					if (value < minvalue) minvalue = value;
-					
-				}
-				return minvalue;
-			}
-
 
 			return total;
 		}
 
-
-		static int solv2(List<int[]> joltages, List<List<List<int>>> togglesList)
+		#region attempts at part 2 using breadth first search (too slow) and linear programming (simplex returns non-integer and negative solutions), neither of which worked
+		static int solve2bfs(List<int[]> joltages, List<List<List<int>>> togglesList)
 		{
 			int total = 0;
 
@@ -209,10 +140,6 @@ namespace _10
 				Dictionary<char[], int> map = new Dictionary<char[], int>();
 
 				int[] init = new int[joltage.Length];
-				for (int j = 0; j < init.Length; j++)
-				{
-					init[j] = 0;
-				}
 
 				Queue<(int[], int)> queue = new Queue<(int[], int)>();
 				Dictionary<int[], int> seen = new Dictionary<int[], int>();
@@ -222,8 +149,17 @@ namespace _10
 				while (queue.Count > 0)
 				{
 					(int[] current, int num) = queue.Dequeue();
+					if (seen.ContainsKey(current))
+					{
+						if (seen[current] >= num)
+						{
+							queue.Enqueue((current, num));
+							continue;
+						}
+					}
 
 					bool match = true;
+					bool pass = false;
 					Console.Write("Found ~ ");
 					for (int c = 0; c < current.Length; c++)
 					{
@@ -233,13 +169,20 @@ namespace _10
 							match = false;
 							//break;
 						}
+						if (current[c] > joltage[c])
+						{
+							pass = true;
+						}
 					}
 					Console.WriteLine($" // {num} iterations");
 					if (match)
 					{
 						break;
 					}
-
+					if (pass)
+					{
+						continue;
+					}
 
 					for (int t = 0; t < toggles.Count; t++)
 					{
@@ -281,9 +224,9 @@ namespace _10
 			return total;
 		}
 
-		static int solve2(List<int[]> joltages, List<List<List<int>>> togglesList)
+		static double solve2simplex(List<int[]> joltages, List<List<List<int>>> togglesList)
 		{
-			int total = 0;
+			double total = 0;
 
 			for (int jol = 0; jol < joltages.Count; jol++)
 			{
@@ -292,21 +235,30 @@ namespace _10
 
 				double[,] simplex = createTableau(joltage, toggles);
 
+				//List<int[]> equations = new List<int[]>();
+				//for (int i = 2; i < simplex.GetLength(0); i += 2)
+				//{
+				//	int[] eq = new int[toggles.Count + 1];
+				//	for (int j = 0; j < toggles.Count; j++)
+				//	{
+				//		eq[j] = (int)simplex[i, 2 + j];
+				//	}
+				//	eq[eq.Length - 1] = (int)simplex[i, simplex.GetLength(1) - 1];
+				//	equations.Add(eq);
+				//}
+
 				minQ(ref simplex);
+				simplex = removeQandArtificials(simplex, (1, 1), (simplex.GetLength(0) - 1, simplex.GetLength(1) - 2 - joltage.Length));
 
-				Print(simplex);
+				//maxP(ref simplex);
+				//searchInts(simplex, equations, toggles);
 
-				simplex = removeQandArtificials(simplex, (1, 1), (-1, -1));
-
-				Print(simplex);
-
-
+				total += simplex[0, simplex.GetLength(1) - 1];
+				Console.WriteLine(total);
 			}
 
-
-			return total;
+			return total * -1;
 		}
-
 		static void minQ(ref double[,] simplex)
 		{
 			while (true)
@@ -362,25 +314,21 @@ namespace _10
 				}
 			}
 		}
-
 		static double[,] removeQandArtificials(double[,] simplex, (int x, int y) pos, (int x, int y) dim)
 		{
-			double[,] newSimplex = new double[simplex.GetLength(0) - 1, simplex.GetLength(1) - 1 - (simplex.GetLength(0) - 2)];
+			double[,] newSimplex = new double[dim.x, dim.y];
 
-			// copy P,constraints,slack/surplus,RHS
 			for (int i = pos.x; i < dim.x; i++)
 			{
 				for (int j = pos.y; j < dim.y; j++)
 				{
 					newSimplex[i - pos.x, j - pos.y] = simplex[i, j];
 				}
-				newSimplex[i - pos.x, newSimplex.GetLength(1) - 1]
+				newSimplex[i - pos.x, newSimplex.GetLength(1) - 1] = simplex[i, simplex.GetLength(1) - 1];
 			}
 
 			return newSimplex;
 		}
-
-
 		static void maxP(ref double[,] simplex)
 		{
 			while (true)
@@ -388,12 +336,12 @@ namespace _10
 				// find pivot column
 				int pc = 0;
 				bool done = true;
-				for (int i = 2; i < simplex.GetLength(1) - 1; i++)
+				for (int i = 1; i < simplex.GetLength(1) - 1; i++)
 				{
-					if (simplex[1, i] < 0)
+					if (simplex[0, i] < 0)
 					{
 						done = false;
-						if (simplex[1, i] < simplex[1, pc])
+						if (simplex[0, i] < simplex[0, pc])
 						{
 							pc = i;
 						}
@@ -416,15 +364,30 @@ namespace _10
 						}
 					}
 				}
+
+				// calc pivot row
+				double pivot = simplex[pr, pc];
+				for (int j = 0; j < simplex.GetLength(1); j++)
+				{
+					simplex[pr, j] /= pivot;
+				}
+
+				// update other rows
+				for (int i = 0; i < simplex.GetLength(0); i++)
+				{
+					if (i == pr) continue;
+					double factor = simplex[i, pc];
+					for (int j = 0; j < simplex.GetLength(1); j++)
+					{
+						simplex[i, j] -= factor * simplex[pr, j];
+					}
+				}
 			}
 		}
-
-
 		static double[,] createTableau(int[] joltage, List<List<int>> toggles)
 		{
 			// Q, P, variables, slack/surplus, artificial, RHS
 			double[,] simplex = new double[2 + 2 * joltage.Length, 2 + toggles.Count + 2 * joltage.Length + joltage.Length + 1];
-
 
 			// 0 - objective function
 			simplex[1, 1] = 1;
@@ -471,32 +434,80 @@ namespace _10
 			}
 
 			// Q
+			int[] countVariables = new int[toggles.Count];
+
+			for (int t = 0; t < toggles.Count; t++)
+			{
+				foreach (int i in toggles[t])
+				{
+					countVariables[t]++;
+				}
+			}
+
 			for (int j = 2; j < 2 + toggles.Count; j++)
 			{
-				simplex[0, j] = joltage.Length;
+				simplex[0, j] = countVariables[j - 2];
 			}
 			simplex[0, simplex.GetLength(1) - 1] = joltage.Sum();
 
-
-			Print(simplex);
 			return simplex;
 		}
-
-		static void Print<T>(T[,] array)
+		static void searchInts(double[,] simplex, List<int[]> equations, List<List<int>> toggles)
 		{
-			int x = array.GetLength(0);
-			int y = array.GetLength(1);
+			// solutions ~ index i is button i, pressed value times
+			double[] solutions = new double[toggles.Count];
+			int lastCol = simplex.GetLength(1) - 1;
 
-			for (int i = 0; i < x; i++)
+			for (int i = 1; i < simplex.GetLength(0); i++)
 			{
-				for (int j = 0; j < y; j++)
+				double value = simplex[i, lastCol];
+
+				if (value != 0)
 				{
-					Console.Write($"{array[i, j],4} ");
+					int solutionIndex = -1;
+					for (int j = 0; j < 1 + toggles.Count; j++)
+					{
+						if (simplex[i, j] != 0)
+						{
+							solutionIndex = j;
+							break;
+						}
+					}
+
+					solutions[solutionIndex] = value;
+				}
+			}
+
+			byte[] counter = new byte[solutions.Length];
+
+			while (counter[0] < 2)
+			{
+				foreach (int[] eq in equations)
+				{
+					double result = eq[eq.Length - 1];
+					double total = 0;
+					for (int i = 0; i < eq.Length - 1; i++)
+					{
+						//if (0) floor and add
+
+						//if (1) ceiling and add
+
+					}
 				}
 
-				Console.WriteLine();
+				counter[counter.Length - 1]++;
+				for (int i = counter.Length - 1; i >= 0; i--)
+				{
+					if (counter[i] == 2)
+					{
+						counter[i] = 0;
+						counter[i - 1]++;
+					}
+				}
 			}
-			Console.WriteLine();
+
 		}
+
+		#endregion
 	}
 }

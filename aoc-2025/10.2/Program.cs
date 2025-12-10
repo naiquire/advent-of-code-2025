@@ -211,7 +211,7 @@ namespace _10_2
         }
 
 
-        static int solve2(List<int[]> joltages, List<List<List<int>>> togglesList)
+        static int solv2(List<int[]> joltages, List<List<List<int>>> togglesList)
         {
             int total = 0;
 
@@ -308,7 +308,7 @@ namespace _10_2
             return total;
         }
 
-        static double solv2(List<int[]> joltages, List<List<List<int>>> togglesList)
+        static double solve2(List<int[]> joltages, List<List<List<int>>> togglesList)
         {
             double total = 0;
 
