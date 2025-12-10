@@ -363,18 +363,18 @@ namespace _10
 			}
 		}
 
-		static double[,] removeQandArtificials(double[,] simplex, (int x, int y) pos, (int x, int y) dimensions)
+		static double[,] removeQandArtificials(double[,] simplex, (int x, int y) pos, (int x, int y) dim)
 		{
 			double[,] newSimplex = new double[simplex.GetLength(0) - 1, simplex.GetLength(1) - 1 - (simplex.GetLength(0) - 2)];
 
 			// copy P,constraints,slack/surplus,RHS
-			for (int i = pos.x; i < dimensions.x; i++)
+			for (int i = pos.x; i < dim.x; i++)
 			{
-				for (int j = pos.y; j < dimensions.y; j++)
+				for (int j = pos.y; j < dim.y; j++)
 				{
-					// values
+					newSimplex[i - pos.x, j - pos.y] = simplex[i, j];
 				}
-				// rhs
+				newSimplex[i - pos.x, newSimplex.GetLength(1) - 1]
 			}
 
 			return newSimplex;
